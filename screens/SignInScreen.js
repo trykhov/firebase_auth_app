@@ -11,20 +11,59 @@ export default class SignInScreen extends React.Component {
       email: "",
       password: ""
     }
-  }
+  };
 
   static navigationOptions = {
     title: "Sign In",
     header: null
   };
 
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text>SignInScreen</Text>
-            </View>
-            )
-    }
+  render() {
+      return (
+          <KeyboardAvoidingView style={styles.container}>
+              <View style={styles.logoContainer}>
+                <Image source={require("../assets/logo.png")}/>
+                <Text>LearningCodeOnline.in</Text>
+              </View>
+              <Form style={styles.form}>
+                <Item floatingLabel> 
+                  <Label>Email</Label>
+                  <Input 
+                    autoCorrect={false}
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                    onChangeText={email => this.setState({email})}
+                  />
+                </Item>
+                <Item floatingLabel> 
+                  {/* floatingLabe allows the element to float up when clicked on */}
+                  <Label>Password</Label>
+                  <Input 
+                    autoCorrect={false}
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                    onChangeText={password => this.setState({password})}  
+                    secureTextEntry={true}
+                  />
+                </Item>
+                <Button 
+                  style={styles.button}
+                  full
+                  rounded
+                  onPress={() => {}}
+                >
+                  <Text style={styles.buttonText}>Sign In</Text>
+                </Button>
+              </Form>
+              <View style={styles.footer}>
+                <Text>OR</Text>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate("SignUp")}>
+                  <Text>Create a new account?</Text>
+                </TouchableOpacity>
+              </View>
+          </KeyboardAvoidingView>
+      )
+  }
 }
 
 const styles = StyleSheet.create({
