@@ -2,6 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as firebase from 'firebase';
 
+// importing all screens
+import HomeScreen from './screens/HomeScreen';
+import LoadingScreen from './screens/LoadingScreen';
+import SignInScreen from './screens/SignInScreen';
+import SignUpScreen from './screens/SignUpScreen';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 let firebaseConfig = { // from the firebase website after clicking on the </> button
   apiKey: "AIzaSyC1AC08ZnST0_R3ToAxGBZ0b8Ma-clcLds",
@@ -15,19 +21,18 @@ let firebaseConfig = { // from the firebase website after clicking on the </> bu
 
 firebase.initializeApp(firebaseConfig);
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const MainNavigator = createStackNavigator(
+  {
+    Loading: { screen: LoadingScreen},
+    SignIn: { screen: SignInScreen},
+    SignUp: { screen: SignUpScreen},
+    Home: { screen: HomeScreen},
   },
-});
+  {
+    // launcher screen
+    initialRouteName: "Loading"
+  }
+)
+
+const App = createAppContainer(MainNavigator);
+export default App;
