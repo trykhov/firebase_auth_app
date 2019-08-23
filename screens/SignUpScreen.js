@@ -19,6 +19,24 @@ export default class SignUpScreen extends React.Component {
     header: null
   };
 
+  signupUser = (name, email, password) => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(authentic => {
+        return authentic
+                  .user
+                  .updateProfile({
+                    displayName: name
+                  })
+                  .then(() => {
+                    this.props.navigation.replace("Home")
+                  })
+      })
+      .catch(err => alert(err.message)
+      )
+  }
+
   render() {
       return (
         <KeyboardAvoidingView style={styles.container} behavior="position" enabled>
@@ -56,12 +74,14 @@ export default class SignUpScreen extends React.Component {
                 secureTextEntry={true}
               />
             </Item>
-            <Button 
-              style={styles.button}
-              full
-              rounded
-              onPress={() => {}}
-            >
+            <Button style={styles.button} full rounded 
+              onPress={() => {
+                this.signupUser(
+                  this.state.name,
+                  this.state.email,
+                  this.state.password
+                )
+              }}>
               <Text style={styles.buttonText}>Sign In</Text>
             </Button>
           </Form>
