@@ -20,7 +20,7 @@ export default class SignInScreen extends React.Component {
 
   render() {
       return (
-          <KeyboardAvoidingView style={styles.container}>
+          <KeyboardAvoidingView style={styles.container} behavior="position" enabled>
               <View style={styles.logoContainer}>
                 <Image source={require("../assets/logo.png")}/>
                 <Text>LearningCodeOnline.in</Text>
