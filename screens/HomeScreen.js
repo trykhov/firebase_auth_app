@@ -14,9 +14,31 @@ export default class HomeScreen extends React.Component {
     }
   };
 
-  // componentDidMount() {
-  //   this.setState()
-  // }
+  static navigationOptions = {
+    title: "Home",
+    header: null 
+  }
+
+  componentDidMount() {
+    firebase
+      .auth()
+      .onAuthStateChanged(authentic => {
+        if(authentic) {
+          this.setState({
+            email: authentic.email,
+            name: authentic.displayName
+          })
+        } else {
+          this.props.navigation.replace("SignIn");
+        }
+      })
+  };
+
+  signOutUser = () => {
+    firebase.auth().signOut()
+      .then(() => console.log("Sign out"))
+      .catch(err => alert(error.message))
+  }
 
   render() {
       return (
@@ -33,7 +55,7 @@ export default class HomeScreen extends React.Component {
                 full 
                 rounded 
                 success 
-                onPres={() => {}}
+                onPress={() => this.signOutUser()}
               >
                 <Text style={styles.buttonText}>Sign Out</Text>
               </Button>
